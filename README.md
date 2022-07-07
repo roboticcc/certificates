@@ -1,7 +1,7 @@
 <h1 align="center">Tree Certificates Order Page</h1>
 <p align="center"><img src="https://i.imgur.com/vgHcTAp.png" width="300"></p>
 
-## Technologies used
+## Technologies Used
 
 <ul> 
 <li>Laravel Framework 9</li>
