@@ -8,6 +8,7 @@
 <li>Bootstrap 5</li>
 <li>JQuery 3.6</li>
 <li>Eloquent ORM</li>
+<li>Vite</li>
 </ul>
 
 ## Local Deployment Process
