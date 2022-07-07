@@ -1,5 +1,5 @@
 <h1 align="center">Tree Certificates Order Page</h1>
-<img align="center" src="https://i.imgur.com/vgHcTAp.png" width="300">
+<p align="center"><img src="https://i.imgur.com/vgHcTAp.png" width="300"></p>
 
 ## Technologies used
 
