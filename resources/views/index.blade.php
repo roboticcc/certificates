@@ -50,39 +50,28 @@ use App\Models\Certificate;
         </div>
         <div class="col-md-6">
             <h3>Buy a Tree</h3>
+            <div class="d-inline-block" style="margin-bottom: 20px;">Current balance: {{$current_balance}} EUR</div>
             <div class="col-lg-8 col-md-8">
                 <form action="/order" method="post">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input name="buyer_name" type="text" class="form-control" placeholder="Specify your name" id="floatingName">
+                        <input name="buyer_name" type="text" class="form-control" placeholder="Specify your name" id="floatingName" required oninvalid="this.setCustomValidity('Please, fill out your name')">
                         <label for="floatingName">Name</label>
-                        <div class="invalid-feedback">
-                            Please, fill out your name
-                        </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="buyer_surname" type="text" class="form-control" placeholder="Specify your surname" id="floatingSurname">
+                        <input name="buyer_surname" type="text" class="form-control" placeholder="Specify your surname" id="floatingSurname" required oninvalid="this.setCustomValidity('Please, fill out your surname')">
                         <label for="floatingSurname">Surname</label>
-                        <div class="invalid-feedback">
-                            Please, fill out your surname
-                        </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="buyer_email" type="email" class="form-control" placeholder="Specify your email" id="floatingEmail">
+                        <input name="buyer_email" type="email" class="form-control" placeholder="Specify your email" id="floatingEmail" required oninvalid="this.setCustomValidity('Please, fill out your email')">
                         <label for="floatingEmail">Email</label>
-                        <div class="invalid-feedback">
-                            Please, fill out your email
-                        </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="tree" type="text" class="form-control" placeholder="Specify your email" id="floatingTree">
+                        <input name="tree" type="text" class="form-control" placeholder="Specify your email" id="floatingTree" required oninvalid="this.setCustomValidity('Please, specify the desired tree')">
                         <label for="floatingTree">Tree</label>
-                        <div class="invalid-feedback">
-                            Please, input the desired tree
-                        </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <select name="amount" class="form-select" id="floatingSelectAmount" name="trees_amount">
+                        <select name="amount" class="form-select" id="floatingSelectAmount" name="trees_amount" required oninvalid="this.setCustomValidity('Please, choose the amount of trees')">
                             <option selected="">Choose the amount of trees</option>
                             @for($i = 1; $i <= 20; $i++)
                                 {
@@ -91,9 +80,6 @@ use App\Models\Certificate;
                             @endfor
                         </select>
                         <label for="floatingSelectTree">Amount</label>
-                        <div class="invalid-feedback">
-                            Please, choose the amount of trees
-                        </div>
                     </div>
                     <div class="form-group" style="margin-bottom: 8px;">
                         <label class="col-sm-4 control-label opacity-50">Currency</label>

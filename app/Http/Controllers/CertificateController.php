@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActivateRequest;
 use App\Http\Requests\OrderRequest;
 use App\Mail\CertificateDetails;
+use App\Models\Balance;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,11 +14,20 @@ use Mail;
 
 class CertificateController extends Controller
 {
+    protected $current_balance;
+
+    public function __construct()
+    {
+        $balance = Balance::find(1);
+        $this->current_balance = $balance->balance_remaining;
+    }
+
     public function index()
     {
         $active_certificates = Certificate::where('status', 1)->orderBy('updated_at', 'asc')->paginate(3);
 
         return view('index', [
+            'current_balance' => $this->current_balance,
             'active_certificates' => $active_certificates
         ]);
     }
@@ -40,6 +50,11 @@ class CertificateController extends Controller
             'amount' => $amount,
             'cost' => $cost,
             'activation_key' => $activation_key
+        ]);
+
+        $balance = Balance::find(1);
+        $balance->update([
+            'balance_remaining' => $this->current_balance - $cost
         ]);
 
         Mail::to($buyer_email)->send(new CertificateDetails($buyer_name, $buyer_surname, $tree, $amount, $cost, $activation_key));

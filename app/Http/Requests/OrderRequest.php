@@ -28,7 +28,7 @@ class OrderRequest extends FormRequest
             'buyer_surname' => 'required',
             'buyer_email' => 'required',
             'tree' => 'required',
-            'amount' => 'required',
+            'amount' => 'required|integer',
         ];
     }
 }
