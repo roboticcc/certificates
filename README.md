@@ -18,6 +18,7 @@
 3. Run `composer install` or `php composer.phar install` depending on the type of Composer installation you have
 4. Run `php artisan key:generate`
 5. Run `php artisan migrate` to fill your database with needed tables & testing data
-6. Run `php artisan serve` if you want Laravel to create a server for you, it might not be needed if your enviroment is already configured
+6. Run `npm run dev` to let vite build the frontend
+7. Run `php artisan serve` if you want Laravel to create a server for you, it might not be needed if your enviroment is already configured
 
 After steps above are done, you can access the project at `localhost:8000`
