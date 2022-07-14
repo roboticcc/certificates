@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use App\Mail\CertificateDetails;
 use App\Models\Balance;
 use App\Models\Certificate;
+use App\Services\ActivationService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -47,17 +48,10 @@ class CertificateController extends Controller
 
     public function activate(ActivateRequest $activateRequest)
     {
-        $activation_key = $activateRequest->activation_key;
+        $service = new ActivationService();
 
-        $certificate = Certificate::where('activation_key', $activation_key)->get();
-
-        foreach ($certificate as $item) {
-            if ($item) {
-                $item->update([
-                    'status' => 1
-                ]);
+        if ($service->activate($activateRequest)){
                 return redirect('/');
-            }
         }
 
         return 'Unable to locate certificate with provided key';
