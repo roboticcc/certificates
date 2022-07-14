@@ -7,9 +7,11 @@ use App\Http\Requests\OrderRequest;
 use App\Mail\CertificateDetails;
 use App\Models\Balance;
 use App\Models\Certificate;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Mail;
+use Throwable;
 
 
 class CertificateController extends Controller
@@ -32,32 +34,13 @@ class CertificateController extends Controller
         ]);
     }
 
+    /**
+     * @throws Throwable
+     */
     public function order(OrderRequest $orderRequest)
     {
-        $buyer_name = $orderRequest->buyer_name;
-        $buyer_surname = $orderRequest->buyer_surname;
-        $buyer_email = $orderRequest->buyer_email;
-        $tree = $orderRequest->tree;
-        $amount = $orderRequest->amount;
-        $cost = $amount * 39;
-        $activation_key = Str::random(10);
-
-        Certificate::create([
-            'buyer_name' => $buyer_name,
-            'buyer_surname' => $buyer_surname,
-            'buyer_email' => $buyer_email,
-            'tree' => $tree,
-            'amount' => $amount,
-            'cost' => $cost,
-            'activation_key' => $activation_key
-        ]);
-
-        $balance = Balance::find(1);
-        $balance->update([
-            'balance_remaining' => $this->current_balance - $cost
-        ]);
-
-        Mail::to($buyer_email)->send(new CertificateDetails($buyer_name, $buyer_surname, $tree, $amount, $cost, $activation_key));
+        $service = new OrderService();
+        $service->order($orderRequest);
 
         return redirect('/');
     }
